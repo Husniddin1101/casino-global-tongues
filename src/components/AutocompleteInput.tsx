@@ -44,7 +44,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({
   };
 
   return (
-    <div className="flex items-end space-x-2">
+    <div className="flex items-start space-x-2">
       <div className="flex-1 min-w-0">
         <textarea
           value={value}

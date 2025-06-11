@@ -27,8 +27,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       
       console.log('User location detected:', data.country_name, 'Country code:', data.country_code);
       
-      // Check if user is from Germany, Austria, or Netherlands
-      const germanSpeakingCountries = ['DE', 'AT', 'NL'];
+      // Check if user is from Germany or Austria only
+      const germanSpeakingCountries = ['DE', 'AT'];
       const userCountry = data.country_code;
       
       if (germanSpeakingCountries.includes(userCountry)) {
