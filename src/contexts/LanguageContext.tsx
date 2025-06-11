@@ -6,7 +6,7 @@ export type Language = 'en' | 'de';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  isDetecting: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -14,20 +14,6 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 interface LanguageProviderProps {
   children: ReactNode;
 }
-
-// Translation keys
-const translations = {
-  en: {
-    welcome: 'Welcome to Your Blank App',
-    subtitle: 'Start building your amazing project here!',
-    loading: 'Loading...',
-  },
-  de: {
-    welcome: 'Willkommen in Ihrer leeren App',
-    subtitle: 'Beginnen Sie hier mit dem Aufbau Ihres erstaunlichen Projekts!',
-    loading: 'Laden...',
-  },
-};
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('en');
@@ -79,12 +65,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     }
   }, [language, isDetecting]);
 
-  const t = (key: string): string => {
-    return translations[language][key as keyof typeof translations['en']] || key;
-  };
-
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, isDetecting }}>
       {children}
     </LanguageContext.Provider>
   );
