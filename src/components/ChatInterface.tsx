@@ -1,7 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React, { useState, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { v4 as uuidv4 } from 'uuid';
 import ChatMessage from './ChatMessage';
@@ -36,33 +34,12 @@ const ChatInterface = () => {
     try {
       const res = await fetch('https://api.ipify.org?format=json');
       const data = await res.json();
-      return data.ip; // example: "123.45.67.89"
+      return data.ip;
     } catch (error) {
       console.error('Failed to fetch IP:', error);
       return null;
     }
   };
-
-  const translations = {
-    en: {
-      welcomeTitle: "Welcome to your smart online assistant",
-      welcomeText: "Discover trending platforms, tips, and games with ChaCha AI",
-      inputPlaceholder: "Type your message...",
-    },
-    de: {
-      welcomeTitle: "Willkommen bei deinem smarten Online-Assistenten",
-      welcomeText: "Entdecke trendige Plattformen, Tipps und Spiele mit ChaCha AI",
-      inputPlaceholder: "Schreibe deine Nachricht...",
-    },
-  };
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [messages]);
 
   const sendMessage = async (messageText: string) => {
     if (!messageText.trim()) return;
@@ -104,7 +81,6 @@ const ChatInterface = () => {
       const data = await response.json();
       console.log("Received webhook response:", data);
 
-      // Process the response using the utility function
       const aiResponse = processWebhookResponse(data);
 
       const aiMessage: Message = {
@@ -144,7 +120,7 @@ const ChatInterface = () => {
 
   return (
     <div className="flex flex-col h-full bg-white">
-      {/* Chat Messages Area - space for header */}
+      {/* Chat Messages Area */}
       <div className="flex-1 overflow-y-auto pt-4" ref={messagesContainerRef}>
         <div className="w-full">
           {messages.length === 0 ? (
